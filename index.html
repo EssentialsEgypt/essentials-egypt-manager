@@ -2,32 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login | Essentials Egypt Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Essentials Egypt Manager</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #0F0F0F;
-      color: white;
-    }
+    .hidden { display: none; }
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center">
-  <div class="bg-gray-900 p-8 rounded-xl w-full max-w-md shadow-lg">
-    <h1 class="text-2xl font-bold text-center mb-6">Login to Essentials Egypt Manager</h1>
-    <form action="dashboard.html" method="GET">
-      <div class="mb-4">
-        <label class="block mb-2">Email</label>
-        <input type="email" class="w-full p-3 rounded bg-gray-800 border border-gray-700 text-white" placeholder="Enter your email" required />
-      </div>
-      <div class="mb-6">
-        <label class="block mb-2">Password</label>
-        <input type="password" class="w-full p-3 rounded bg-gray-800 border border-gray-700 text-white" placeholder="Enter your password" required />
-      </div>
-      <button type="submit" class="w-full bg-white text-black font-semibold py-3 rounded hover:bg-gray-200 transition">Login</button>
-    </form>
-  </div>
+<body class="flex bg-black text-white min-h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-black p-6 space-y-4">
+    <img src="/logo.png" alt="Essentials Egypt Logo" class="mb-6 w-40" />
+    <nav class="space-y-2">
+      <button onclick="showSection('dashboard')" class="block w-full text-left hover:text-gray-300">Dashboard</button>
+      <button onclick="showSection('content')" class="block w-full text-left hover:text-gray-300">Content Hub</button>
+      <button onclick="showSection('ads')" class="block w-full text-left hover:text-gray-300">Ad Performance</button>
+      <button onclick="showSection('competitors')" class="block w-full text-left hover:text-gray-300">Competitors</button>
+      <button onclick="showSection('cash')" class="block w-full text-left hover:text-gray-300">Cash Log</button>
+      <button onclick="showSection('audience')" class="block w-full text-left hover:text-gray-300">Audience</button>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="flex-1 p-10 space-y-10">
+    <!-- Dashboard -->
+    <section id="dashboard">
+      <h1 class="text-3xl font-bold mb-2">Welcome to Essentials Egypt Manager</h1>
+      <p>This is your dashboard. Add your widgets and data here.</p>
+    </section>
+
+    <!-- Content Hub -->
+    <section id="content" class="hidden">
+      <h2 class="text-2xl font-bold mb-2">Content Hub</h2>
+      <p>Plan and manage your social media posts here.</p>
+    </section>
+
+    <!-- Ad Performance -->
+    <section id="ads" class="hidden">
+      <h2 class="text-2xl font-bold mb-2">Ad Performance</h2>
+      <p>Track your Meta, Google, TikTok, and Snapchat ad performance.</p>
+    </section>
+
+    <!-- Competitors -->
+    <section id="competitors" class="hidden">
+      <h2 class="text-2xl font-bold mb-2">Competitor Analysis</h2>
+      <p>Track your competitors' viral content and save good ideas.</p>
+    </section>
+
+    <!-- Cash Log -->
+    <section id="cash" class="hidden">
+      <h2 class="text-2xl font-bold mb-2">Cash Log</h2>
+      <p>Add income, expenses, and view profit summary.</p>
+    </section>
+
+    <!-- Audience -->
+    <section id="audience" class="hidden">
+      <h2 class="text-2xl font-bold mb-2">Audience Tracker</h2>
+      <p>View your audience stats and engagement insights.</p>
+    </section>
+  </main>
+
+  <!-- Script -->
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'))
+      document.getElementById(id).classList.remove('hidden')
+    }
+  </script>
 </body>
 </html>
