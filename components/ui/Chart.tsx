@@ -13,7 +13,7 @@ export function Chart() {
         labels: ['Jan', 'Feb', 'Mar', 'Apr'],
         datasets: [{
           label: 'Revenue',
-          data: [1200, 1900, 3000, 2200],
+          data: [1000, 1500, 1200, 1700],
           backgroundColor: '#facc15'
         }]
       }

@@ -1,5 +1,10 @@
-import Sidebar from "../components/Sidebar";
 import "../styles/globals.css";
+import Sidebar from "../components/Sidebar";
+
+export const metadata = {
+  title: 'Essentials Egypt Manager',
+  description: 'Manage your ads, competitors, and performance',
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
