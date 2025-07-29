@@ -9,144 +9,174 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class="bg-gray-900 text-white font-sans">
-  <div class="flex min-h-screen">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-black p-4 space-y-6">
-      <img src="https://via.placeholder.com/150x50?text=Logo" alt="Essentials Egypt logo - white owl with ESSENTIALS EGYPT text" class="mx-auto">
-      <nav class="space-y-3">
-        <a href="#dashboard" class="block font-bold">Dashboard</a>
-        <a href="#competitors" class="block">Competitors</a>
-        <a href="#cashlog" class="block">Cash Log</a>
-        <a href="#adperformance" class="block">Ad Performance</a>
-        <a href="#audience" class="block">Audience</a>
-        <a href="#website" class="block">Website Analytics</a>
-        <a href="#adideas" class="block">Ad Ideas</a>
-      </nav>
-    </aside>
+<body class="flex bg-gray-900 text-white min-h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-black p-4 space-y-6 text-sm">
+    <img src="https://via.placeholder.com/150x50?text=Essentials+EGYPT+Manager" alt="Essentials Egypt Manager Logo" class="mx-auto">
+    <nav class="space-y-2">
+      <a href="#dashboard" class="block hover:text-gray-400">Dashboard</a>
+      <a href="#competitors" class="block hover:text-gray-400">Competitors</a>
+      <a href="#cashlog" class="block hover:text-gray-400">Cash Log</a>
+      <a href="#ads" class="block hover:text-gray-400">Ad Performance</a>
+      <a href="#audience" class="block hover:text-gray-400">Audience</a>
+      <a href="#website" class="block hover:text-gray-400">Website Analytics</a>
+      <a href="#ideas" class="block hover:text-gray-400">Ad Ideas</a>
+    </nav>
+  </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 p-6 space-y-12">
+  <!-- Main Content -->
+  <main class="flex-1 p-6 space-y-12 overflow-y-auto">
+    <!-- Dashboard -->
+    <section id="dashboard">
+      <h2 class="text-2xl font-bold mb-4">Dashboard</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-gray-800 p-4 rounded">Followers: <span id="followers">2,340</span></div>
+        <div class="bg-gray-800 p-4 rounded">Ad Spend: <span id="adSpend">12,500 EGP</span></div>
+        <div class="bg-gray-800 p-4 rounded">Profit: <span id="profit">8,300 EGP</span></div>
+        <div class="bg-gray-800 p-4 rounded">Engagement: <span id="engagement">4.7%</span></div>
+      </div>
+      <canvas id="dashboardChart" class="mt-6"></canvas>
+    </section>
 
-      <!-- Dashboard -->
-      <section id="dashboard">
-        <h1 class="text-2xl font-bold mb-4">Welcome to Essentials Egypt Manager</h1>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="bg-gray-800 p-4 rounded">Total Profit: <strong>$12,000</strong></div>
-          <div class="bg-gray-800 p-4 rounded">Ad Spend: <strong>$3,500</strong></div>
-          <div class="bg-gray-800 p-4 rounded">Followers: <strong>25.3k</strong></div>
-          <div class="bg-gray-800 p-4 rounded">Engagement: <strong>7.8%</strong></div>
-        </div>
-        <canvas id="metricsChart" class="mt-8"></canvas>
-      </section>
+    <!-- Competitors -->
+    <section id="competitors">
+      <h2 class="text-2xl font-bold mb-4">Competitors</h2>
+      <table class="w-full text-left text-sm">
+        <thead>
+          <tr class="bg-gray-800">
+            <th class="p-2">Name</th>
+            <th class="p-2">Recent Viral</th>
+            <th class="p-2">Action</th>
+          </tr>
+        </thead>
+        <tbody id="competitorTable">
+          <tr>
+            <td class="p-2">Kicks Sports</td>
+            <td class="p-2">Viral Reel on Bape Camo Shorts</td>
+            <td class="p-2"><button class="bg-blue-600 px-2 py-1 rounded">Steal Idea</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-      <!-- Competitors -->
-      <section id="competitors">
-        <h2 class="text-xl font-semibold mb-4">Competitor Insights</h2>
-        <table class="w-full bg-gray-800 rounded text-sm">
-          <thead><tr class="bg-gray-700">
-            <th class="p-2 text-left">Brand</th><th>Viral Reel</th><th>Idea</th><th>Action</th>
-          </tr></thead>
-          <tbody id="competitorIdeas">
-            <tr><td class="p-2">Brand A</td><td>Camo Hoodie 360 Spin</td><td>Use fast zoom transitions</td><td><button class="bg-green-500 px-2 py-1 rounded">Steal</button></td></tr>
-            <tr><td class="p-2">Brand B</td><td>Drop Test Shoes</td><td>Recreate in Egypt Streets</td><td><button class="bg-green-500 px-2 py-1 rounded">Steal</button></td></tr>
-          </tbody>
-        </table>
-      </section>
+    <!-- Cash Log -->
+    <section id="cashlog">
+      <h2 class="text-2xl font-bold mb-4">Cash Log</h2>
+      <form onsubmit="addCashLog(event)" class="space-y-2">
+        <input type="text" id="type" placeholder="Type (income/expense)" class="p-2 rounded w-1/4">
+        <input type="text" id="desc" placeholder="Description" class="p-2 rounded w-1/3">
+        <input type="number" id="amount" placeholder="Amount" class="p-2 rounded w-1/4">
+        <button type="submit" class="bg-green-600 p-2 rounded">Add</button>
+      </form>
+      <table class="w-full mt-4 text-left text-sm">
+        <thead>
+          <tr class="bg-gray-800">
+            <th class="p-2">Type</th>
+            <th class="p-2">Description</th>
+            <th class="p-2">Amount</th>
+          </tr>
+        </thead>
+        <tbody id="cashLogTable"></tbody>
+      </table>
+    </section>
 
-      <!-- Cash Log -->
-      <section id="cashlog">
-        <h2 class="text-xl font-semibold mb-4">Cash Log</h2>
-        <form onsubmit="addCash(event)" class="flex flex-wrap gap-2">
-          <input type="text" id="desc" placeholder="Description" class="text-black p-2 rounded">
-          <input type="number" id="amount" placeholder="Amount" class="text-black p-2 rounded">
-          <select id="type" class="text-black p-2 rounded">
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
-          </select>
-          <button class="bg-blue-500 px-4 py-2 rounded">Add</button>
-        </form>
-        <div class="mt-4">
-          <table class="w-full bg-gray-800 rounded text-sm">
-            <thead><tr><th class="p-2 text-left">Desc</th><th>Amount</th><th>Type</th></tr></thead>
-            <tbody id="cashTable"></tbody>
-          </table>
-          <div id="totals" class="mt-2"></div>
-        </div>
-      </section>
+    <!-- Ad Performance -->
+    <section id="ads">
+      <h2 class="text-2xl font-bold mb-4">Ad Performance</h2>
+      <canvas id="adsChart"></canvas>
+    </section>
 
-      <!-- Ad Performance -->
-      <section id="adperformance">
-        <h2 class="text-xl font-semibold mb-4">Ad Performance</h2>
-        <select id="platform" class="text-black p-2 mb-2 rounded">
-          <option>Meta</option>
-          <option>Google</option>
-          <option>TikTok</option>
-          <option>Snapchat</option>
-        </select>
-        <canvas id="adChart"></canvas>
-        <p class="mt-2 text-green-400">Recommendation: Scale "Lookalike Video Views" Ad</p>
-      </section>
+    <!-- Audience -->
+    <section id="audience">
+      <h2 class="text-2xl font-bold mb-4">Audience</h2>
+      <canvas id="audienceChart"></canvas>
+    </section>
 
-      <!-- Audience -->
-      <section id="audience">
-        <h2 class="text-xl font-semibold mb-4">Audience Insights</h2>
-        <canvas id="audienceChart"></canvas>
-      </section>
+    <!-- Website Analytics -->
+    <section id="website">
+      <h2 class="text-2xl font-bold mb-4">Website Analytics</h2>
+      <canvas id="websiteChart"></canvas>
+    </section>
 
-      <!-- Website Analytics -->
-      <section id="website">
-        <h2 class="text-xl font-semibold mb-4">Website Tracker</h2>
-        <canvas id="webChart"></canvas>
-      </section>
+    <!-- Ad Ideas -->
+    <section id="ideas">
+      <h2 class="text-2xl font-bold mb-4">Ad Ideas</h2>
+      <button onclick="generateIdea()" class="bg-blue-600 p-2 rounded">Generate Ad Idea</button>
+      <ul id="ideasList" class="mt-4 space-y-2"></ul>
+    </section>
+  </main>
 
-      <!-- Ad Ideas -->
-      <section id="adideas">
-        <h2 class="text-xl font-semibold mb-4">Ad Ideas</h2>
-        <button onclick="genIdea()" class="bg-indigo-500 px-4 py-2 rounded">Generate Idea</button>
-        <ul id="ideaList" class="mt-4 space-y-2"></ul>
-      </section>
-    </main>
-  </div>
-
+  <!-- Scripts -->
   <script>
-    // Charts
-    new Chart(document.getElementById('metricsChart'), { type: 'line', data: { labels: ['Jan', 'Feb', 'Mar'], datasets: [{ label: 'Profit', data: [1000, 3000, 5000], borderColor: 'lime', borderWidth: 2 }] }, options: { responsive: true } });
-    new Chart(document.getElementById('adChart'), { type: 'bar', data: { labels: ['Ad 1', 'Ad 2'], datasets: [{ label: 'Spend', data: [500, 300], backgroundColor: 'orange' }] }, options: { responsive: true } });
-    new Chart(document.getElementById('audienceChart'), { type: 'pie', data: { labels: ['18-24', '25-34', '35+'], datasets: [{ data: [50, 30, 20], backgroundColor: ['red', 'yellow', 'blue'] }] }, options: { responsive: true } });
-    new Chart(document.getElementById('webChart'), { type: 'line', data: { labels: ['Mon', 'Tue', 'Wed'], datasets: [{ label: 'Visitors', data: [400, 550, 700], borderColor: 'white', borderWidth: 2 }] }, options: { responsive: true } });
-
-    // Cash Log
-    function addCash(e) {
-      e.preventDefault();
-      const desc = document.getElementById('desc').value;
-      const amount = +document.getElementById('amount').value;
-      const type = document.getElementById('type').value;
-      const row = `<tr><td class="p-2">${desc}</td><td>$${amount}</td><td>${type}</td></tr>`;
-      document.getElementById('cashTable').insertAdjacentHTML('beforeend', row);
-      updateTotals(amount, type);
-    }
-    let totalIncome = 0, totalExpense = 0;
-    function updateTotals(amount, type) {
-      if (type === 'income') totalIncome += amount;
-      else totalExpense += amount;
-      const profit = totalIncome - totalExpense;
-      document.getElementById('totals').innerText = `Income: $${totalIncome} | Expense: $${totalExpense} | Profit: $${profit}`;
-    }
-
-    // Ad Idea Generator
     const ideas = [
-      'UGC Video: Unboxing Hoodie in Cairo',
-      'Before/After Styling Look',
-      'POV: You found the rare Essentials drop',
-      'Real vs Fake Series',
-      'Instagram Story Poll with new arrivals'
+      "Show behind-the-scenes of product packing",
+      "Create a street-style reel with trending music",
+      "Use customer reviews as voiceover",
+      "Do an outfit challenge: 1 hoodie, 3 looks",
+      "Compare real vs fake versions"
     ];
-    function genIdea() {
-      const pick = ideas[Math.floor(Math.random() * ideas.length)];
-      const li = `<li class='bg-gray-800 p-2 rounded'>${pick}</li>`;
-      document.getElementById('ideaList').insertAdjacentHTML('beforeend', li);
+    function generateIdea() {
+      const idea = ideas[Math.floor(Math.random() * ideas.length)];
+      const li = document.createElement('li');
+      li.textContent = idea;
+      document.getElementById('ideasList').appendChild(li);
     }
+
+    function addCashLog(e) {
+      e.preventDefault();
+      const type = document.getElementById('type').value;
+      const desc = document.getElementById('desc').value;
+      const amount = document.getElementById('amount').value;
+      const row = `<tr><td class='p-2'>${type}</td><td class='p-2'>${desc}</td><td class='p-2'>${amount}</td></tr>`;
+      document.getElementById('cashLogTable').innerHTML += row;
+    }
+
+    new Chart(document.getElementById('dashboardChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        datasets: [{
+          label: 'Profit',
+          data: [3000, 4200, 5000, 6300, 8300],
+          borderColor: 'lime',
+        }]
+      },
+    });
+
+    new Chart(document.getElementById('adsChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Meta', 'Google', 'TikTok', 'Snapchat'],
+        datasets: [{
+          label: 'Ad Spend (EGP)',
+          data: [5000, 3000, 2000, 2500],
+          backgroundColor: ['blue', 'red', 'purple', 'yellow']
+        }]
+      },
+    });
+
+    new Chart(document.getElementById('audienceChart'), {
+      type: 'pie',
+      data: {
+        labels: ['18-24', '25-34', '35-44'],
+        datasets: [{
+          data: [60, 30, 10],
+          backgroundColor: ['green', 'orange', 'gray']
+        }]
+      },
+    });
+
+    new Chart(document.getElementById('websiteChart'), {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+        datasets: [{
+          label: 'Visitors',
+          data: [300, 420, 360, 500, 640],
+          borderColor: 'cyan'
+        }]
+      },
+    });
   </script>
 </body>
 
